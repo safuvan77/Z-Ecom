@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    /* Custom styles */
+    .table th,
+    .table td {
+      vertical-align: middle;
+    }
+    .remove-btn {
+      padding: 0.2rem 0.5rem;
+    }
+    .total-section {
+      background-color: #f8f9fa;
+      padding: 1rem;
+      border-radius: 0.25rem;
+    }
+    .total-section h4 {
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="my-4">Shopping Cart</h1>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">image</th>
+          <th scope="col">Product</th>
+          <th scope="col">Price</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Total</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+		{% for i in cartitem %}
+        <tr>
+			<td>
+				<img src="{{i.fk_product.image.url}}" alt="" width="100px" class="product-image">
+			</td>
+          	<td>{{i.fk_product.name}}</td>
+          	<td>$ {{i.fk_product.price}}</td>
+          	<td>
+            <span><a class="btn btn-primary" href="{% url 'cart_quantity_dec' i.id %}">-</a> </span>
+            <span><input type="number" class="form-control" value="{{i.quantity}}"></span> 
+            <span><a class="btn btn-primary" href="{% url 'cart_quantity_inc' i.id %}">+</a></span>
+            
+          </td>
+          <td>$ {{i.sub_total}}</td>
+          <td>
+            <a href="{% url 'item_delete' i.id%}">
+            <button class="btn btn-danger btn-sm remove-btn">Delete</button>
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <div class="total-section">
+      <h4>Subtotal: $ {{total}}</h4>
+      <div class="form-group">
+        <label for="discount">Discount Name:</label>
+        <input type="text" class="form-control" id="discount">
+      </div>
+      <div class="form-group">
+        <label for="discount-amount">Discount Amount:</label>
+        <input type="number" class="form-control" id="discount-amount" min="0">
+      </div>
+      <div class="form-group">
+        <label for="shipping-fee">Shipping Fee:</label>
+        <input type="number" class="form-control" id="shipping-fee" min="0">
+      </div>
+      <div class="form-group">
+        <label for="gift-wrapped-fee">Gift Wrapped Fee:</label>
+        <input type="number" class="form-control" id="gift-wrapped-fee" min="0">
+      </div>
+      <h4>Total: $ </h4>
+      <a href="{% url 'home' %}">
+      <button class="btn btn-primary mt-3">Checkout</button>
+      </a>
+    </div>
+  </div>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

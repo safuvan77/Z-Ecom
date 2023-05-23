@@ -1,0 +1,60 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+
+  <head>
+
+    <meta charset="utf-8">
+
+    <title>َsignin</title>
+
+    <link rel="stylesheet" href="{% static 'css/signin.css' %}" type="text/css">
+
+  </head>
+
+  <body>
+    
+
+
+<form class="box" method="post">   
+  {% csrf_token %}
+
+  <h1>Signin</h1>
+
+  <input type="text" name="username" placeholder="Username">
+
+  <input type="password" name="password" placeholder="Password">
+
+  <input type="submit" name="" value="Signin">
+
+  {% for message in messages %}
+  <span style="color:{% if message.tags == 'success' %} green {% else %} red {% endif %}">{{ message }}</span>
+  {% endfor %}
+
+  <!-- <p><a href="" style="text-decoration: none;">Forgotten password?</a></p> -->
+
+  <hr>
+
+  <div>
+    <p style="color: red;">Don't have an account</p>
+    <a style="text-decoration: none;" href="{% url 'signup' %}"><input style="background: none;
+      display: block;
+      margin: 20px auto;
+      text-align: center;
+      border: 2px solid #2ecc71;
+      padding: 14px 40px;
+      outline: none;
+      color: white;
+      border-radius: 24px;
+      transition: 0.25s;
+      cursor: pointer;" type="button" value="Signup">
+    </a>
+  </div>
+
+</form>
+
+  </body>
+
+</html>

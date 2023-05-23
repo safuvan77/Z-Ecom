@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini E-commerce</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .jumbotron {
+      background-color: #e9ecef;
+      color: #343a40;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    .cart-btn {
+      background-color: #6c757d;
+      color: #fff;
+    }
+    .logout-btn {
+      background-color: #dc3545;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="jumbotron text-center">
+    <h1 class="display-4">E-commerce!</h1>
+    <p class="lead">Explore our wide range of products</p>
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+      <a class="btn btn-lg btn-primary cart-btn me-2" href="{% url 'add_product' %}">Add product</a>
+      
+	    <a class="btn btn-lg btn-danger cart-btn me-2" href="{% url 'index' %}">SignOut</a>
+    </div>
+  </header>
+
+  <!-- Product Section -->
+  <section class="container">
+    <h2>Featured Products</h2>
+	{% for val in product %}
+    <div class="row">
+      <!-- Add your product cards here -->
+      <div class="col-md-4">
+        <div class="card">
+          <img src="{{ val.image.url }}" class="card-img-top" alt="Product 1">
+          <div class="card-body">
+            <h5 class="card-title">{{ val.name }}</h5>
+			      <p class="text-muted">{{ product.description}}</p>
+            <p class="card-text">$ {{val.price}}</p>
+            <a class="btn btn-lg btn-primary cart-btn me-2" href="{% url 'update_product' val.id %}">Update product</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card">
+          
+        </div>
+      </div>
+    </div>
+	{% endfor %}
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center bg-light py-3">
+    <p>&copy; 2023 E-commerce. All rights reserved.</p>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
